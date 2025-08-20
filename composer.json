@@ -1,0 +1,16 @@
+{
+    "name": "usuario/agenda-seguranca",
+    "autoload": {
+        "psr-4": {
+            "Usuario\\AgendaSeguranca\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Joice"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.10"
+    }
+}

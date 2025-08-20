@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+@media (max-width: 768px) {
+  body {
+    font-size: 0.9em;
+  }
+  header img.logo {
+    max-width: 150px;
+  }
+  section {
+    padding: 10px;
+    margin: 0 5px;
+  
+  }
+  table {
+    font-size: 0.8em;
+  }
+  th, td {
+    padding: 4px;
+  }
+  a {
+    font-size: 0.8em;
+  }
+  footer{
+    font-size: 0.8em;
+    padding: 8px;}
+
+}
+
+@media (max-width: 576px) {
+  body {
+    font-size: 0.8em;
+  }
+  header img.logo {
+    max-width: 120px;
+  }
+  section {
+    padding: 10px;
+    margin: 0 5px;
+  }
+  table {
+    font-size: 0.7em;
+  }
+  th, td {
+    padding: 3px;
+  }
+  button {
+    padding: 5px 10px;
+    font-size: 0.8em;
+  }
+  a {
+    font-size: 0.6em;
+  }
+  footer{
+    font-size: 0.7em;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.7em;
+
+  }
+  header img.logo {
+    max-width: 100px;
+  }
+  section {
+    padding: 5px;
+    margin: 0 2px;
+  }
+  table {
+    font-size: 0.6em;
+  }
+  th, td {
+    padding: 2px;
+  }
+  button {
+        padding: 3px 5px;
+        font-size: 0.6em;
+  }
+  a {
+    font-size: 0.4em;
+  }
+  footer{
+    font-size: 0.6em;
+    padding: 6px;
+  }
+
+}
+@media (max-width: 360px) {
+  body {
+    font-size: 0.6em;
+  }
+  header img.logo {
+    max-width: 80px;
+  }
+  section {
+    padding: 5px;
+    margin: 0 1px;
+  }
+  table {
+    font-size: 0.6em;
+  }
+  th, td {
+    padding: 1px;
+  }
+    button {
+    padding: 1px 3px;
+    font-size: 0.4em;
+  }
+  a {
+    font-size: 0.2em;
+  }
+  footer{
+    font-size: 0.5em;
+    padding: 4px;
+  }
+}

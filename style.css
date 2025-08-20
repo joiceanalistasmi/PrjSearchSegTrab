@@ -1,0 +1,237 @@
+ body{
+    font-family: Arial, Helvetica, sans-serif;
+   
+ }
+
+header{
+   /* position: relative;*/
+    text-align: center;
+}
+header img{
+    width: 150px; 
+    height: auto;
+}
+header div{
+    position: absolute; top: 0; left: 0; width: 100vw; height: 300px; z-index: 0; overflow: hidden;
+}
+header div img{
+    width: 100vw; height: 150px; object-fit: cover; opacity: 0.2;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0; 
+  padding: 10px; 
+  text-align: center;
+}
+section{ 
+    margin: 10px auto;
+    padding: 20px;
+    max-width: auto;
+    margin: 0 auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 16px rgba(44, 55, 156, 0.08);
+    border-radius: 8px; 
+    max-height: 80vh;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;  
+    
+    overflow: scroll;
+    justify-self: auto;
+}
+ 
+h2 {
+    font-size: 1.0em;
+    text-align: center;
+    color: rgb(50, 16, 143);
+}
+
+.titulo-centralizado {
+  text-align: justify;
+  margin-bottom: 20px;
+  font-size: 1.3em;
+  color: #185a99;
+}
+
+
+table {
+   /* margin: 10px auto; */
+    font-size: 0.9em;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(44, 55, 156, 0.08);
+    background-color: #fff;
+    border-collapse: collapse;
+    border: 1px solid;
+    text-align: center;
+}
+
+thead tr {
+    background-color:  #0676aa;
+    color: #fff;
+    text-align: left;
+}
+
+th, td {
+    padding: 6px 8px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f4fa;
+}
+
+tbody tr:hover {
+    background-color: #eaf371ab;
+    transition: background 0.2s;
+}
+
+th {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+ form > div {
+      margin: 10px auto; 
+    }
+form.cadastro {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 16px rgba(44, 55, 156, 0.08);
+    border-radius: 8px;
+}
+
+label {
+      display: block;
+      margin-bottom: 3px;
+      font-weight: bold ;
+      
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+select:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 3px #007bff;
+    }
+
+button {
+      padding: 8px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+button[type="submit"] {
+      background-color: #34567e;
+      color: white;
+    }
+button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+button[type="reset"] {
+      background-color: #6c757d;
+      color: white;
+    }
+button[type="reset"]:hover {
+      background-color: #5a6268;
+    }
+
+.btn {
+    display: inline-block;
+    padding: 6px 6px;
+    margin: 0 2px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer; 
+}
+
+.btn-primary {
+    background-color: #0676aa;
+}
+
+.btn-primary:hover {
+    background-color: #da5a0f;
+}
+
+.btn-danger {
+    background-color: #e28213;
+}
+
+.btn-danger:hover {
+    background-color: #c2655a;
+}
+
+.mb-3 {
+    margin-bottom: 0.2rem !important;
+  }
+  .mb-4 {
+    margin-bottom: 0.2rem !important;
+  }
+
+
+/* Model para visualizar o agendamento */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100%; height: 100%;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background: #ece0e0;
+    margin: 5% auto;
+    padding: 30px 24px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 2px 16px rgba(44, 55, 156, 0.18);
+}
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px; right: 18px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover { color: #e74c3c; }
+.modal-content h3 { margin-top: 0; color: #2c379c; }
+.modal-content p { margin: 8px 0; }
+.btn-info {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    margin: 0 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-info:hover {
+    background-color: #117a8b;
+}
+
+
