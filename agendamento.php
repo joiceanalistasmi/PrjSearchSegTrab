@@ -28,7 +28,7 @@
     </div>
     <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST"
       onsubmit="return validarCampos(document.formAgenda);">
-      <h3>Formulário de Agendamento - Perícia médica - Segurança do trabalho</h3>
+      <h4>Formulário de Agendamento - Perícia médica - Segurança do trabalho</h4>
       <div>
         <label for="nome_servidor">Nome do Servidor*</label>
         <input type="text" id="nome_servidor" name="nome_servidor" maxlength="100" required />
@@ -49,7 +49,7 @@
 
       <div>
         <label for="telefone">Telefone*</label>
-        <input type="text" id="telefone" name="telefone" maxlength="100" placeholder="(xx)xxxxx-xxxx" required />
+        <input type="tel" id="telefone" name="telefone" maxlength="100" placeholder="(xx)xxxxx-xxxx" required />
       </div>
       <script>
 
@@ -62,7 +62,7 @@
       <div>
         <label for="tipo_atendimento">Tipo de Atendimento*</label>
         <select id="tipo_atendimento" name="tipo" required>
-          <option value="consulta">Consulta</option>
+          <option value="consulta">Retorno ao Trabalho</option>
           <option value="Homologacao_de_Atestado">Homologação de Atestado</option>
         </select>
       </div>

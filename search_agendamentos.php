@@ -24,25 +24,17 @@ date_default_timezone_set('America/Sao_Paulo');
 
 <section>
     <h2 class="titulo-centralizado">Visualizar agendamentos de Perícia Médica - Segurança do Trabalho</h2>
-    <br>
-
-    <form id="searchAgendamento">
-        <div class="mb-3">
+    <br/>    
+        <div class="formSearch" >
             <button type="button" class="btn btn-primary" onclick="window.location.href='agendamento.php'">NOVO AGENDAMENTO</button>
-        </div><br>
-
-        <div class="mb-3">
-            <label>Data (Inicial e Final):</label><br>
-            <input type="date" id="dataInicio" name="dataInicio" style="width: 20%;">
+            <label>Data (Inicial e Final):</label>
+            <input type="date" id="dataInicio" name="dataInicio" style="width: 15%;">
             <span>até</span>
-            <input type="date" id="dataFim" name="dataFim" style="width: 20%;">
+            <input type="date" id="dataFim" name="dataFim" style="width: 15%;" >
             <button type="submit" class="btn btn-primary">CONSULTAR</button>
-        </div><br>
-    </form>
-
-    <div id="tabelaAgendamentos">
-         
-    </div>
+        </div>
+    <br/>
+    <div id="tabelaAgendamentos">  </div>
 
     <!-- Modal    -->
     <div id="detalheModal" class="modal">
