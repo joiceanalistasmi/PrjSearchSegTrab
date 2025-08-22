@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,11 +10,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script src="funcao.js"></script>
   <link rel='stylesheet' href="responsive.css">
-
 </head>
 
 <body>
-
   <header>
     <img src="imagens/logo1.jpg" alt="Logo" class="logo">
     <div>
@@ -23,9 +20,6 @@
     </div>
   </header>
   <section>
-    <div>
-      
-    </div>
     <form class="cadastro" action="processar_agendamento.php" name="formAgenda" id="formAgenda" method="POST"
       onsubmit="return validarCampos(document.formAgenda);">
       <h4>Formulário de Agendamento - Perícia médica - Segurança do trabalho</h4>
@@ -100,86 +94,80 @@
 
 
   <script>
-    const dataInput = document.getElementById('data_agendamento');
-    const horarioSelect = document.getElementById('horario');
+    // Função para obter os próximos dois dias úteis (segunda a sexta)
+    function getProximosDiasUteis(qtd = 2) {
+      const hoje = new Date();
+      const diasUteis = [];
+      let data = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
 
-    const horariosPorDia = {
-      /* aqui refere-se aos dias da semana */
-      0: ['Domingo'],
-      1: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Segunda
-      2: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Terça
-      3: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Quarta
-      4: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Quinta
-      5: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"],
-      6: ['Sábado']
-    };
+      while (diasUteis.length < qtd) {
+        data.setDate(data.getDate() + 1);
+        const diaSemana = data.getDay();
+        if (diaSemana >= 1 && diaSemana <= 5) { // Segunda a sexta
+          diasUteis.push(new Date(data));
+        }
+      }
+      return diasUteis;
+    }
 
-    dataInput.addEventListener('change', function() {
-      const [ano, mes, dia] = this.value.split('-').map(Number);
-      const dataSelecionada = new Date(ano, mes - 1, dia);
-      const diaSemana = dataSelecionada.getDay();
+    
+    window.addEventListener('DOMContentLoaded', function() {
+      const dataInput = document.getElementById('data_agendamento');
+      const horarioSelect = document.getElementById('horario');
+     
+      const horariosPorDia = {
+        0: [], // - 0 domingo 6 - sabado
+        1: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Segunda
+        2: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Terça
+        3: ["07:30", "07:40", "07:50", "08:00", "08:10", "08:20", "08:30", "08:40", "08:50", "09:00", "09:10", "09:20", "09:30", "09:40", "09:50", "10:00", "10:10", "10:20", "10:30", "10:40", "10:50", "11:00", "11:10", "11:20"], // Quarta
+        4: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Quinta
+        5: ["13:10", "13:20", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50"], // Sexta
+        6: [] };
 
-      horarioSelect.innerHTML = ''; // Limpa campo
+      // Pega os próximos dois dias úteis
+      const diasUteis = getProximosDiasUteis(2);
+      const minDate = diasUteis[0].toISOString().split('T')[0];
+      const maxDate = diasUteis[1].toISOString().split('T')[0];
 
-      if (horariosPorDia[diaSemana]) { 
-        if (diaSemana === 0 || diaSemana === 6) {
-          const option = document.createElement('option');
-          option.value = '';
-          option.textContent = 'Não há horários disponíveis';
-          horarioSelect.appendChild(option);
+     
+      dataInput.setAttribute('min', minDate);
+      dataInput.setAttribute('max', maxDate);
+
+      dataInput.addEventListener('input', function() {
+        if (this.value < minDate || this.value > maxDate) {
+          alert('Selecione uma data válida!');
+          this.value = '';
+          horarioSelect.innerHTML = '<option value="">Selecione uma data primeiro</option>';
+        }
+      });
+
+      dataInput.addEventListener('change', function() {
+        horarioSelect.innerHTML = '';
+        if (!this.value) return;
+
+        const dataSelecionada = new Date(this.value);
+        const diaSemana = dataSelecionada.getDay();
+
+        if (!horariosPorDia[diaSemana]) {
+          horarioSelect.innerHTML = '<option value="">Sem horários para este dia</option>';
           return;
         }
-
-        const hoje = new Date();
+        /* nao precisa mais 
+        if (diaSemana === 0 || diaSemana === 6){
+          horarioSelect.innerHTML = '<option value="">Sem horários para este dia</option>';
+          return;
+        }
+        */
         horariosPorDia[diaSemana].forEach(hora => {
-          const [horaSelecionada, minutoSelecionado] = hora.split(':').map(Number);
-
-          const horarioAgendamento = new Date(ano, mes - 1, dia, horaSelecionada, minutoSelecionado);
-          console.log(hoje, dataSelecionada);
-          
-           
-          // Permite horários futuros para hoje, bloqueia horários passados
-          if (
-            dataSelecionada < new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate())
-          ) {
-            return;
-          }
-          if (
-            dataSelecionada.getFullYear() === hoje.getFullYear() &&
-            dataSelecionada.getMonth() === hoje.getMonth() &&
-            dataSelecionada.getDate() === hoje.getDate()
-          ) {
-            // Se for hoje, só mostra horários futuros
-            if (
-              horaSelecionada < hoje.getHours() ||
-              (horaSelecionada === hoje.getHours() && minutoSelecionado <= hoje.getMinutes())
-            ) {
-              return;
-            }
-          }
-                    
           const option = document.createElement('option');
           option.value = hora;
           option.textContent = hora;
           horarioSelect.appendChild(option);
         });
-
-        // Se não houver horários disponíveis, mostra mensagem
-        if (horarioSelect.options.length === 0) {
-          const option = document.createElement('option');
-          option.value = '';
-          option.textContent = 'Sem horários disponíveis para este dia';
-          horarioSelect.appendChild(option);
-        }
-      } else {
-        const option = document.createElement('option');
-        option.value = '';
-        option.textContent = 'Sem horários disponíveis para este dia';
-        horarioSelect.appendChild(option);
-      }
+      });
     });
   </script>
-
+ 
 </body>
 
 </html>
