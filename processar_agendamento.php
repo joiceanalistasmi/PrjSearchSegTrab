@@ -7,6 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 require_once 'funcoesPhp.php';
 include("conexao.php");
 
+
 session_start();
 
 if (
@@ -17,7 +18,7 @@ if (
     $tipo_de_usuario = htmlspecialchars($_POST["tipo_de_usuario"]);
     $nome_acompanhante = $_POST["nome_acompanhante"];
     $email = filter_var($_POST["email"]);
-    $tipo = htmlspecialchars($_POST["tipo"]); //se é consulta ou atestado
+    $tipo = htmlspecialchars($_POST["tipo"]); //se é homologação de atestado ou retorno ao trabalho
     $telefone = htmlspecialchars($_POST["telefone"]);
     $data_agendamento = htmlspecialchars($_POST["data_agendamento"]);
     $horario = htmlspecialchars($_POST["horario"]); 
@@ -50,7 +51,7 @@ if (
             if ($resultadoEmail === true) {
                 echo "<script>alert('Registro gravado e e-mail enviado com sucesso!'); window.location.href = 'https://saomiguel.pr.gov.br/';</script>";
             } else {
-                echo "<script>alert('Registro gravado, mas houve erro ao enviar o email de Notificação'); window.location.href = 'agendamento.php';</script>";
+                echo "<script>alert('Registro gravado, mas houve erro ao enviar o email de Notificação'); window.location.href = 'https://saomiguel.pr.gov.br/';</script>";
             }
             exit;
         }

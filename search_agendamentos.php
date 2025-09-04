@@ -98,7 +98,7 @@ date_default_timezone_set('America/Sao_Paulo');
     // Inicia ao carregar
     window.onload = () => {
         carregarTabela();
-        setInterval(carregarTabela, 10000); // atualiza a cada 10 segundos 
+        setInterval(carregarTabela, 5000); // atualiza a cada 5 segundos 
 
         document.getElementById('searchAgendamento').onsubmit = e => {
             e.preventDefault();
