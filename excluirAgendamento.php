@@ -12,6 +12,6 @@ if (isset($_GET['id'])) {
 $dataInicio = $_GET['dataInicio'] ?? '';
 $dataFim = $_GET['dataFim'] ?? '';
 $btnSearch = $_GET['btn-search'] ?? '';
-header("Location: search_agendamentos.php?dataInicio=$dataInicio&dataFim=$dataFim&btn-search=$btnSearch");
+header("Location: index.php?dataInicio=$dataInicio&dataFim=$dataFim&btn-search=$btnSearch");
 exit;
 ?>

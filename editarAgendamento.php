@@ -57,7 +57,7 @@
 
                 if (mysqli_query($conexao, $sqlEditar)) {
                     echo "<script>alert('Agendamento atualizado com sucesso!'); 
-                                              window.location.href='search_agendamentos.php';</script>";
+                                              window.location.href='index.php';</script>";
                     exit;
                 } else {
                     echo "<script>alert('Erro ao atualizar agendamento.'); 
@@ -140,7 +140,7 @@
                         <div class="button">
                             <button type="submit" name="btn-gravar" class="btn btn-primary">Atualizar</button>
                             <button type="reset" name="btn-reset" class="btn btn-secondary">Limpar</button>
-                            <a href="search_agendamentos.php" class="btn btn-danger">Voltar</a>
+                            <a href="index.php" class="btn btn-danger">Voltar</a>
                         </div>
                     </form>
             <?php
