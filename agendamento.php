@@ -114,7 +114,7 @@
     // Função que retorna os próximos N dias úteis, começando 2 dias úteis após hoje
     function getProximosDiasUteis(qtd = 2) {
       const agora = new Date();
-      const inicio = adicionarDiasUteis(agora, 2); // começa 2 diasuteis depois de hoje
+      const inicio = adicionarDiasUteis(agora, 1); // começa 2 diasuteis depois de hoje  / coloquei 1  mas tem que verificar 
 
       const diasUteis = [];
       let data = new Date(inicio);
