@@ -13,6 +13,8 @@ function validarCampos(formAgenda){
         formAgenda.email.value = "";
     }
 */
+
+
 } 
 //Mascara para o numero de telefone 
  $(document).ready(function(){

@@ -138,19 +138,43 @@ th {
     letter-spacing: 0.5px;
 }
 
-/* Formulários Gerais */
-form > div {
-    margin: 10px auto;
-}
+    .btn-info {
+        background: #17a2b8;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 18px;
+        margin: 0 2px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .btn-info:hover {
+        background: #117a8b;
+    }
 
-form.cadastro {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 16px rgba(44, 55, 156, 0.08);
-    border-radius: 8px;
-}
+    /* Responsive Styles */
+    @media (max-width: 700px) {
+        section {
+            max-width: 98vw;
+            padding: 8px;
+            margin: 12px auto 80px auto;
+            border-radius: 8px;
+        }
+        form.cadastro {
+            max-width: 98vw;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        table {
+            font-size: 0.95em;
+        }
+        th, td {
+            padding: 6px 4px;
+        }
+        header img.logo {
+            width: 80px;
+        }
+    }
 
 label {
     display: block;

@@ -154,12 +154,13 @@
       dataInput.setAttribute('max', maxDate);
 
       dataInput.addEventListener('input', function () {
-        if (this.value < minDate || this.value > maxDate) {
-          alert('Selecione uma data válida!');
-          this.value = '';
-         
-          horarioSelect.innerHTML = '<option value="">Selecione uma data primeiro</option>';
-        }
+          const dataSelecionada = new Date(this.value + 'T00:00:00');
+          const diaSemana = dataSelecionada.getDay();
+          if (this.value < minDate || this.value > maxDate || diaSemana === 0 || diaSemana === 6) {
+            alert('Selecione uma data válida! Sábado e domingo não são permitidos.');
+            this.value = '';
+            horarioSelect.innerHTML = '<option value="">Selecione uma data primeiro</option>';
+          }
       });
 
       dataInput.addEventListener('change', function () {
