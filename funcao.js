@@ -52,3 +52,20 @@ function atualizarPagina() {
              })
              .catch(error => console.error('Erro:', error));
      }
+
+     function visualizaServidores() {
+         fetch('/src/login/list_servidorPacient.php')
+             .then(response => response.json())
+             .then(dados => {
+                 // Lógica para atualizar a página com os dados recebidos
+                 // Por exemplo:
+                 let elemento = document.getElementById('id');
+                 elemento.innerHTML = ''; // Limpa o conteúdo atual
+                 dados.forEach(item => {
+                     let novoItem = document.createElement('div');
+                     novoItem.textContent = item.nome + ': ' + item.valor;
+                     elemento.appendChild(novoItem);
+                 });
+             })
+             .catch(error => console.error('Erro:', error));
+     }
