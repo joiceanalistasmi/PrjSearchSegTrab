@@ -30,16 +30,18 @@
           <button class="btn btn-outline-secondary" type="button" id="btnConsultar">Consultar</button>
       </div>
   </div>
-
   <div class="form-group col-md-6">
       <label for="servidor">Servidor Selecionado:</label>
       <input type="text" class="form-control" id="servidor" placeholder="Selecione o servidor">
   </div>
-
+<!-- aqui começa o form para add-->
   <div class="form-row">
       <div class="form-group col-md-6">
           <label for="cid">CID</label>
           <input type="text" class="form-control" id="cid" placeholder="CID">
+        <?php
+
+        ?>
       </div>
       <div class="form-group col-md-6">
           <label for="data_inicio">Data de Início</label>
@@ -53,7 +55,7 @@
 
   <div class="form-group col-md-6">
       <label for="tipo_atendimento">Tipo de Atendimento*</label>
-      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+      <select class=" c-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
           <option value="consulta">Retorno ao Trabalho</option>
           <option value="Homologacao_de_Atestado">Homologação de Atestado</option>
       </select>
@@ -64,8 +66,12 @@
       <input type="text" class="form-control" id="observacao" placeholder="Observação">
   </div>
 
-  <button type="submit" class="btn btn-primary">Enviar</button>
+  <button type="submit" class="btn btn-primary">Cadastrar</button>
+  <button type="reset" class="btn btn-secondary">Limpar</button>
 </form>
+</section>
+<section>
+    <div id="listaProcedimentos" class="mt-4"></div>
 </section>
 
 <!-- Modal -->
@@ -98,10 +104,10 @@ $(document).ready(function() {
     $("#btnConsultar").click(function() {
         const nome = $("#nome_servidor").val().trim();
 
-        if (nome.length < 2) {
+       /* if (nome.length < 2) {
             alert("Digite ao menos 2 letras para pesquisar.");
             return;
-        }
+        }*/
 
         $.ajax({
             url: "list_servidorPacient.php",
@@ -122,9 +128,25 @@ $(document).ready(function() {
         const nomeSelecionado = $(this).text();
         $("#servidor").val(nomeSelecionado);
         $("#detalheModal").modal("hide");
+
+        // Buscar lista de procedimentos do servidor
+        $.ajax({
+            url: "list_pacientDetails.php",
+            type: "POST",
+            data: { servidor: nomeSelecionado },
+            success: function(data) {
+                $("#listaProcedimentos").html(data);
+            },
+            error: function() {
+                $("#listaProcedimentos").html("<p>Erro ao carregar os procedimentos.</p>");
+            }
+    });
     });
 
 });
+
+
+
 </script>
 
 </body>

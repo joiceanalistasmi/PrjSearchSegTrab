@@ -11,7 +11,8 @@ include("conexao.php");
 session_start();
 
 if (
-    isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && isset($_POST['tipo_de_usuario'])
+    isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && 
+    isset($_POST['tipo_de_usuario'])
 ) {
 
     $nome_servidor = htmlspecialchars($_POST["nome_servidor"]);
@@ -23,7 +24,7 @@ if (
     $data_agendamento = htmlspecialchars($_POST["data_agendamento"]);
     $horario = htmlspecialchars($_POST["horario"]); 
     $status = $_POST["status"];
-
+    print("oi");
     if (
         empty($nome_servidor) || empty($tipo_de_usuario) || empty($telefone) || empty($tipo) ||
         empty($data_agendamento) || empty($horario) 

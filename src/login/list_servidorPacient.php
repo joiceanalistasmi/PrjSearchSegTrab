@@ -1,5 +1,6 @@
 <?php
-include("../../conexao.php");
+include("../../conexao.php"); 
+
 
 if (isset($_POST['nome_servidor'])) {
     $nome = mysqli_real_escape_string($conexao, $_POST['nome_servidor']);
@@ -10,13 +11,13 @@ if (isset($_POST['nome_servidor'])) {
     $res = mysqli_query($conexao, $sql);
 
     if (mysqli_num_rows($res) > 0) {
-        echo "<ul class='list-group'>";
+        echo "<ul class='list-group list-group-flush'>";
         while ($row = mysqli_fetch_assoc($res)) {
             echo "<li class='list-group-item servidor-item' style='cursor:pointer;'>"
-               . htmlspecialchars($row['nome_servidor']) .
-               "<a href='Selecionar.php?id={$row['id']}' class='btn btn-primary'>
-               <i class='bi bi-pencil' ></i> + </a>".
-               "</li>";
+               . htmlspecialchars($row['nome_servidor']) //.
+              // "<a href='Selecionar.php?id={$row['id']}' class='btn btn-primary'>
+              // <i class='bi bi-pencil' ></i> + </a>".
+               ."</li>";
         }
         echo "</ul>";
     } else {
