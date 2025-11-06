@@ -2,7 +2,7 @@
 include("../../conexao.php"); 
 session_start();
 
-print_r($_POST);
+//print_r($_POST);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validação básica
@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    var_dump($_POST);
+   // var_dump($_POST);
+    $servidor_id = (int) $_POST['servidor_id'];
     $cid = mysqli_real_escape_string($conexao, $_POST["cid"]);
     $data_inicio = mysqli_real_escape_string($conexao, $_POST["data_inicio"]);
     $data_final = mysqli_real_escape_string($conexao, $_POST["data_final"]);
@@ -21,14 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $observacao = mysqli_real_escape_string($conexao, $_POST["observacao"]);
     $servidor_id = mysqli_real_escape_string($conexao, $_POST["servidor_id"]);
 
+    //
+    $servidor_nome = mysqli_real_escape_string($conexao, $_POST["servidor"]);
+    $nome_url = urlencode($servidor_nome);
+
     // INSERT 
     
     $sql = "INSERT INTO pacient_details 
             (cid, data_inicio, data_final, tipo_servico, observacao, fk_agenda)
             VALUES ('$cid','$data_inicio','$data_final','$tipo_servico','$observacao','$servidor_id')";
-
+    //manter o codigo do paciente vinculado 
     if (mysqli_query($conexao, $sql)) {
-        echo "<script>alert('Cadastro realizado com sucesso!'); window.location.href='pacient_details.php';</script>";
+        echo "<script>alert('Cadastro realizado com sucesso!'); 
+         window.location.href = 'pacient_details.php?servidor_id=$servidor_id&servidor_nome=$nome_url';</script>";
     } else {
         echo "<script>alert('Erro ao gravar: " . mysqli_error($conexao) . "'); window.history.back();</script>";
     }

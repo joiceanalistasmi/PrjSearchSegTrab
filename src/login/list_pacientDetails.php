@@ -27,7 +27,7 @@ $sql = mysqli_query($conexao, "
     WHERE 
         a.id = $servidor_id
     ORDER BY 
-        p.data_inicio DESC
+        p.data_inicio desc
 ");
 
 if (mysqli_num_rows($sql) > 0) {

@@ -1,4 +1,7 @@
-
+<?php
+$servidor_id_get = isset($_GET['servidor_id']) ? $_GET['servidor_id'] : '';
+$servidor_nome_get = isset($_GET['servidor_nome']) ? $_GET['servidor_nome'] : '';
+?>
 
 
 <!DOCTYPE html>
@@ -34,10 +37,12 @@
       </div>
   </div>
   <div class="form-group col-md-6">
-      <label for="servidor">Servidor Selecionado:</label>
-      <input type="text" class="form-control" id="servidor" placeholder="Selecione o servidor" name="servidor">
-      <input type="hidden" id="servidor_id" name="servidor_id">
-  </div>
+  <label for="servidor">Servidor Selecionado:</label>
+  <input type="text" class="form-control" id="servidor" name="servidor" 
+         value="<?php echo htmlspecialchars($servidor_nome_get); ?>">
+  <input type="hidden" id="servidor_id" name="servidor_id" 
+         value="<?php echo htmlspecialchars($servidor_id_get); ?>">
+</div>
   
 <!--  cadastra os procedimentos de paciente -->
   <div class="form-row">
@@ -155,6 +160,30 @@ $(document).ready(function() {
             }
     });
 });
+
+$(document).ready(function() {
+    const servidor_id = $("#servidor_id").val();
+
+    if (servidor_id) {
+        // Se o servidor já estiver selecionado (via GET), carrega seus procedimentos automaticamente
+        $.ajax({
+            url: "list_pacientDetails.php",
+            type: "POST",
+            data: { servidor_id: servidor_id },
+            beforeSend: function() {
+                $("#listaProcedimentos").html("<p>Carregando procedimentos...</p>");
+            },
+            success: function(data) {
+                $("#listaProcedimentos").html(data);
+            },
+            error: function() {
+                $("#listaProcedimentos").html("<p>Erro ao carregar os procedimentos.</p>");
+            }
+        });
+    }
+});
+
+
 });
 </script>
 
