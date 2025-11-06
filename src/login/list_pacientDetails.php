@@ -2,43 +2,48 @@
 include("../../conexao.php");
 date_default_timezone_set('America/Sao_Paulo');
 
-$servidor = $_POST['servidor'] ?? '';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if (empty($servidor)) {
+if (empty($_POST['servidor_id'])) {
     echo "<p>Nenhum servidor selecionado.</p>";
     exit;
 }
 
+$servidor_id = (int) $_POST['servidor_id'];
+
 $sql = mysqli_query($conexao, "
     SELECT 
-        p.nome_servidor,
+        a.nome_servidor,
         p.cid,
-        a.data_inicio,
-        a.data_fim,
-        a.tipo_atendimento,
-        a.observacao,
-        a.status,
+        p.data_inicio,
+        p.data_final,
+        p.tipo_servico,
+        p.observacao,
         a.id
     FROM 
         pacient_details AS p
-        INNER JOIN agendamentos AS a ON p.id_agendamento = a.id
+        INNER JOIN agendamentos AS a ON p.fk_agenda = a.id
     WHERE 
-        p.nome_servidor LIKE '%$servidor%'
+        a.id = $servidor_id
     ORDER BY 
-        a.data_agendamento DESC
+        p.data_inicio DESC
 ");
 
-if ($sql && mysqli_num_rows($sql) > 0) {
-    echo "<h4>Procedimentos de <strong>$servidor</strong></h4>";
+if (mysqli_num_rows($sql) > 0) {
+    $dados = mysqli_fetch_assoc($sql);
+    echo "<h4>Procedimentos de <strong>" . htmlspecialchars($dados['nome_servidor']) . "</strong></h4>";
+
+    mysqli_data_seek($sql, 0); // Volta o ponteiro para o início
+
     echo "<table class='table table-bordered table-striped'>
             <thead>
                 <tr>
                     <th>CID</th>
                     <th>Data Início</th>
-                    <th>Data Fim</th>
-                    <th>Tipo de Atendimento</th>
-                    <th>Observação</th>
-                    <th>Status</th>
+                    <th>Data Final</th>
+                    <th>Tipo de Serviço</th>
+                    <th>Observação</th> 
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -46,12 +51,11 @@ if ($sql && mysqli_num_rows($sql) > 0) {
 
     while ($row = mysqli_fetch_assoc($sql)) {
         echo "<tr>
-                <td>{$row['cid']}</td>
-                <td>{$row['data_inicio']}</td>
-                <td>{$row['data_fim']}</td>
-                <td>{$row['tipo_atendimento']}</td>
-                <td>{$row['observacao']}</td>
-                <td>{$row['status']}</td>
+                <td>" . htmlspecialchars($row['cid']) . "</td>
+                <td>" . htmlspecialchars($row['data_inicio']) . "</td>
+                <td>" . htmlspecialchars($row['data_final']) . "</td>
+                <td>" . htmlspecialchars($row['tipo_servico']) . "</td>
+                <td>" . htmlspecialchars($row['observacao']) . "</td>
                 <td>
                     <a href='editarAgendamento.php?id={$row['id']}' class='btn btn-primary btn-sm'>Editar</a>
                     <a href='excluirAgendamento.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Tem certeza que deseja excluir este prontuário?');\">Excluir</a>

@@ -1,4 +1,6 @@
-<?php include("../../conexao.php"); ?>
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -22,40 +24,43 @@
 </header>
 
 <section class="p-4">
-<form id="formServidor" method="POST">
+
+<form id="formServidor" method="POST" action="processa_pacientDetails.php" >
 
   <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Pesquisar nome de servidor..." id="nome_servidor" name="nome_servidor">
+      <input type="text" class="form-control" placeholder="Pesquisar nome de servidor" id="nome_servidor" name="nome_servidor">
       <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" id="btnConsultar">Consultar</button>
       </div>
   </div>
   <div class="form-group col-md-6">
       <label for="servidor">Servidor Selecionado:</label>
-      <input type="text" class="form-control" id="servidor" placeholder="Selecione o servidor">
+      <input type="text" class="form-control" id="servidor" placeholder="Selecione o servidor" name="servidor">
+      <input type="hidden" id="servidor_id" name="servidor_id">
   </div>
-<!-- aqui começa o form para add-->
+  
+<!--  cadastra os procedimentos de paciente -->
   <div class="form-row">
       <div class="form-group col-md-6">
           <label for="cid">CID</label>
-          <input type="text" class="form-control" id="cid" placeholder="CID">
+          <input type="text" class="form-control" id="cid" placeholder="CID" name="cid" >
         <?php
 
         ?>
       </div>
       <div class="form-group col-md-6">
           <label for="data_inicio">Data de Início</label>
-          <input type="date" class="form-control" id="data_inicio">
+          <input type="date" class="form-control" id="data_inicio" name="data_inicio">
       </div>
       <div class="form-group col-md-6">
-          <label for="data_fim">Data de Fim</label>
-          <input type="date" class="form-control" id="data_fim">
+          <label for="data_final">Data de Fim</label>
+          <input type="date" class="form-control" id="data_final" name="data_final">
       </div>
   </div>
 
   <div class="form-group col-md-6">
-      <label for="tipo_atendimento">Tipo de Atendimento*</label>
-      <select class=" c-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+      <label for="tipo_servico">Tipo de Atendimento*</label>
+      <select  class="form-control"  name="tipo_servico" id="tipo_servico">
           <option value="consulta">Retorno ao Trabalho</option>
           <option value="Homologacao_de_Atestado">Homologação de Atestado</option>
       </select>
@@ -63,10 +68,10 @@
 
   <div class="form-group">
       <label for="observacao">Observação:</label>
-      <input type="text" class="form-control" id="observacao" placeholder="Observação">
+      <textarea  class="form-control" id="observacao" placeholder="Observação" name="observacao" rows="3"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Cadastrar</button>
+  <button type="submit" class="btn btn-primary">Cadastrar Procedimento</button>
   <button type="reset" class="btn btn-secondary">Limpar</button>
 </form>
 </section>
@@ -85,7 +90,7 @@
         </button>
       </div>
       <div class="modal-body" id="modalDetalhes">
-        <!-- Resultados aparecem aqui -->
+        <!-- resultadooo  -->
       </div>
     </div>
   </div>
@@ -99,8 +104,6 @@
 
 <script>
 $(document).ready(function() {
-
-    // Ao clicar no botão Consultar
     $("#btnConsultar").click(function() {
         const nome = $("#nome_servidor").val().trim();
 
@@ -114,6 +117,7 @@ $(document).ready(function() {
             type: "POST",
             data: { nome_servidor: nome },
             success: function(data) {
+                console.log("Resposta do servidor:", data);
                 $("#modalDetalhes").html(data);
                 $("#detalheModal").modal("show");
             },
@@ -123,30 +127,35 @@ $(document).ready(function() {
         });
     });
 
-    // Quando clicar em um servidor na lista
-    $(document).on("click", ".servidor-item", function() {
-        const nomeSelecionado = $(this).text();
-        $("#servidor").val(nomeSelecionado);
-        $("#detalheModal").modal("hide");
+    // lista
+   $(document).on("click", ".servidor-item", function() {
+    const nomeSelecionado = $(this).text().trim();
+    const servidor_id = $(this).data("id");
+    
+     console.log("Nome selecionado:", nomeSelecionado);  
+     console.log("ID capturado:", servidor_id);
 
-        // Buscar lista de procedimentos do servidor
-        $.ajax({
+    $("#servidor").val(nomeSelecionado);
+    $("#servidor_id").val(servidor_id);
+    $("#detalheModal").modal("hide");
+
+     $.ajax({
             url: "list_pacientDetails.php",
             type: "POST",
-            data: { servidor: nomeSelecionado },
+            data: { servidor_id: servidor_id },
+            beforeSend: function() {
+                $("#listaProcedimentos").html("<p>Carregando procedimentos...</p>");
+            },
             success: function(data) {
                 $("#listaProcedimentos").html(data);
             },
-            error: function() {
+            error: function(xhr) {
+                console.error("Erro Ajax:", xhr.responseText);
                 $("#listaProcedimentos").html("<p>Erro ao carregar os procedimentos.</p>");
             }
     });
-    });
-
 });
-
-
-
+});
 </script>
 
 </body>
