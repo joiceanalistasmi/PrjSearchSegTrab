@@ -5,13 +5,15 @@ date_default_timezone_set('America/Sao_Paulo');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+$servidor_id = $_POST['servidor_id'] ?? $_GET['servidor_id'] ?? '';
+
 if (empty($_POST['servidor_id'])) {
     echo "<p>Nenhum servidor selecionado.</p>";
     exit;
 }
 
-$servidor_id = (int) $_POST['servidor_id'];
-
+$servidor_id = (int) $servidor_id;
+echo "to aqui";
 $sql = mysqli_query($conexao, "
     SELECT 
         a.nome_servidor,
@@ -20,7 +22,8 @@ $sql = mysqli_query($conexao, "
         p.data_final,
         p.tipo_servico,
         p.observacao,
-        a.id
+        p.fk_agenda,
+        p.id
     FROM 
         pacient_details AS p
         INNER JOIN agendamentos AS a ON p.fk_agenda = a.id
@@ -58,8 +61,8 @@ if (mysqli_num_rows($sql) > 0) {
                 <td>" . htmlspecialchars($row['observacao']) . "</td>
                 <td>
                     <a href='editarAgendamento.php?id={$row['id']}' class='btn btn-primary btn-sm'>Editar</a>
-                    <a href='excluirAgendamento.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Tem certeza que deseja excluir este prontuário?');\">Excluir</a>
-                </td>
+                    <a href='excluir_pacientDetails.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Tem certeza que deseja excluir o Procedimento?');\">Excluir</a>
+                                   </td>
               </tr>";
     }
 
