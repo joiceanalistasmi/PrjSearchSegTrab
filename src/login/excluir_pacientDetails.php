@@ -14,7 +14,8 @@ if (isset($_GET['id'])) {
 // Redireciona de volta para a página de visualização com os filtros
 
 $servidor_id = $_GET['servidor_id'] ?? '';  
-header("Location: pacient_details.php?servidor_id=" . urlencode($servidor_id));
+header("Location: pacient_details.php?servidor_id="
+     . urlencode($servidor_id));
 
 
 exit;

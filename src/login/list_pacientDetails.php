@@ -52,18 +52,24 @@ if (mysqli_num_rows($sql) > 0) {
             </thead>
             <tbody>";
 
-    while ($row = mysqli_fetch_assoc($sql)) {
-        echo "<tr>
-                <td>" . htmlspecialchars($row['cid']) . "</td>
-                <td>" . htmlspecialchars($row['data_inicio']) . "</td>
-                <td>" . htmlspecialchars($row['data_final']) . "</td>
-                <td>" . htmlspecialchars($row['tipo_servico']) . "</td>
-                <td>" . htmlspecialchars($row['observacao']) . "</td>
-                <td>
-                    <a href='editarAgendamento.php?id={$row['id']}' class='btn btn-primary btn-sm'>Editar</a>
-                    <a href='excluir_pacientDetails.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Tem certeza que deseja excluir o Procedimento?');\">Excluir</a>
-                                   </td>
-              </tr>";
+ while ($row = mysqli_fetch_assoc($sql)) {
+    echo "<tr>
+            <td>" . htmlspecialchars($row['cid']) . "</td>
+            <td>" . htmlspecialchars($row['data_inicio']) . "</td>
+            <td>" . htmlspecialchars($row['data_final']) . "</td>
+            <td>" . htmlspecialchars($row['tipo_servico']) . "</td>
+            <td>" . htmlspecialchars($row['observacao']) . "</td>
+            <td>
+                <a href='editarAgendamento.php?id={$row['id']}' class='btn btn-primary btn-sm'>Editar</a>
+                <a href='excluir_pacientDetails.php?id={$row['id']}&servidor_id={$servidor_id}&servidor_nome=" . urlencode($dados['nome_servidor']) . "' 
+                   class='btn btn-danger btn-sm' 
+                   onclick=\"return confirm('Tem certeza que deseja excluir o Procedimento?');\">
+                   Excluir
+                </a>
+            </td>
+          </tr>";
+ 
+
     }
 
     echo "</tbody></table>";
