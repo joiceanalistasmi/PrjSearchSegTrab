@@ -4,6 +4,7 @@ $servidor_nome_get = isset($_GET['servidor_nome']) ? $_GET['servidor_nome'] : ''
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,6 +17,21 @@ $servidor_nome_get = isset($_GET['servidor_nome']) ? $_GET['servidor_nome'] : ''
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function save() {
+  const form = document.getElementById('formServidor');
+  const formData = new FormData(form);
+
+  fetch('processa_pacientDetails.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(r => r.text())
+  .then(result => {
+    document.body.innerHTML = result; // mostra o retorno do PHP
+  });
+}
+        </script>
 </head>
 
 <body>
@@ -28,7 +44,7 @@ $servidor_nome_get = isset($_GET['servidor_nome']) ? $_GET['servidor_nome'] : ''
 
 <section class="p-4">
 
-<form id="formServidor" method="POST" action="processa_pacientDetails.php" >
+<form id="formServidor" method="POST" action="processa_pacientDetails.php"  >
 
   <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Pesquisar nome de servidor" id="nome_servidor" name="nome_servidor">
@@ -76,7 +92,7 @@ $servidor_nome_get = isset($_GET['servidor_nome']) ? $_GET['servidor_nome'] : ''
       <textarea  class="form-control" id="observacao" placeholder="Observação" name="observacao" rows="3"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Cadastrar Procedimento</button>
+  <button type="button" class="btn btn-primary" onclick="save()">Cadastrar Procedimento</button>
   <button type="reset" class="btn btn-secondary">Limpar</button>
 </form>
 </section>
@@ -182,9 +198,30 @@ $(document).ready(function() {
         });
     }
 });
-
-
 });
+function save() {
+  const form = document.getElementById('formServidor');
+  const formData = new FormData(form);
+
+  formData.append('action', 'save');
+
+  fetch('processa_pacientDetails.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(r => r.json()) // muda de .text() para .json()
+  .then(result => {
+    if (result.status === "ok") {
+      alert(result.mensagem);
+      window.location.href = result.redirect; // redireciona corretamente
+    } else {
+      alert(result.mensagem);
+    }
+  })
+  .catch(err => console.error("Erro no fetch:", err));
+}
+
+
 </script>
 
 </body>
