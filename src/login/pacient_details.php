@@ -92,7 +92,7 @@ $servidor_nome_get = isset($_GET['servidor_nome']) ? $_GET['servidor_nome'] : ''
       <textarea  class="form-control" id="observacao" placeholder="Observação" name="observacao" rows="3"></textarea>
   </div>
 
-  <button type="button" class="btn btn-primary" onclick="save()">Cadastrar Procedimento</button>
+  <button type="button" class="btn btn-primary" onclick="save()">Salvar</button>
   <button type="reset" class="btn btn-secondary">Limpar</button>
 </form>
 </section>
@@ -153,8 +153,8 @@ $(document).ready(function() {
     const nomeSelecionado = $(this).text().trim();
     const servidor_id = $(this).data("id");
     
-     console.log("Nome selecionado:", nomeSelecionado);  
-     console.log("ID capturado:", servidor_id);
+    console.log("Nome selecionado:", nomeSelecionado);  
+    console.log("ID capturado:", servidor_id);
 
     $("#servidor").val(nomeSelecionado);
     $("#servidor_id").val(servidor_id);
@@ -219,6 +219,25 @@ function save() {
     }
   })
   .catch(err => console.error("Erro no fetch:", err));
+}
+
+function update(id) {
+    const form = document.getElementById('formServidor');
+    const formData = new FormData(form);
+    formData.append('action', 'edit');
+    formData.append('id', id);
+    
+    fetch('processa_pacientDetails.php', { method: 'POST', body: formData })
+    .then(r => r.json())
+    .then(result => {
+        if (result.status === "ok") {
+            alert(result.mensagem);
+            window.location.href = result.redirect;
+        } else {
+            alert(result.mensagem);
+        }
+    })
+    .catch(err => console.error("Erro no fetch:", err));
 }
 
 

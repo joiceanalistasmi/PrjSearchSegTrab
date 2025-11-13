@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Agendamento para perícia médica</title>
+   <title>Agendamento para Perícia Médica</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <link rel="stylesheet" href="responsive.css" />
+
 </head>
 
 <body>
@@ -19,14 +19,21 @@
       <img src="imagens/prefeitura.jpg" alt="Prefeitura de São Miguel do Iguaçu">
     </div>
   </header>
-
+<?php
+session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+?>
   <section>
     <form class="cadastro" action="processar_agendamento.php" method="POST" name="formAgenda" id="formAgenda">
       <h4>Formulário de Agendamento - Perícia médica - Segurança do trabalho</h4>
+     
+      <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
       <div>
         <label for="nome_servidor">Nome do Servidor*</label>
-        <input type="text" id="nome_servidor" name="nome_servidor" maxlength="100" required />
+        <input type="text" id="nome_servidor" name="nome_servidor" maxlength="100" pattern="^[A-Za-zÀ-ÿ\s']+$" required />
       </div>
 
       <div>
@@ -39,7 +46,7 @@
 
       <div>
         <label for="nome_acompanhante">Nome do Acompanhante (quando necessário)</label>
-        <input type="text" id="nome_acompanhante" name="nome_acompanhante" maxlength="100" />
+        <input type="text" id="nome_acompanhante" name="nome_acompanhante" maxlength="100" pattern="^[A-Za-zÀ-ÿ\s']+$" />
       </div>
 
       <div>
@@ -49,7 +56,7 @@
 
       <div>
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" maxlength="100" />
+        <input type="email" id="email" name="email" maxlength="100" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
       </div>
 
       <div>
@@ -66,7 +73,7 @@
       </div>
 
       <div>
-        <label for="horario">Horário</label>
+        <label for="horario">Horário*</label>
         <select id="horario" name="horario" required>
           <option value="">Selecione uma data primeiro</option>
         </select>

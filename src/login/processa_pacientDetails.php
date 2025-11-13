@@ -36,7 +36,7 @@ function save() {
    if (mysqli_query($conexao, $sql)) {
     echo json_encode([
         "status" => "ok",
-        "mensagem" => "Cadastro realizado com sucesso!",
+        "mensagem" => "Procedimento adicionado com sucesso!",
         "redirect" => "pacient_details.php?servidor_id=$servidor_id&servidor_nome=$nome_url"
         ]);
     } else {
@@ -52,16 +52,47 @@ function save() {
 if (isset($_POST['action'])) {
     if ($_POST['action'] === 'save') { 
         save();
+    } elseif ($_POST['action'] === 'edit') {
+        edit((int) $_POST['id']);
+    } elseif ($_POST['action'] === 'get') {
+        get((int) $_POST['id']);
     } else {
-        echo "Ação desconhecida!";
+        echo json_encode(["status"=>"erro","mensagem"=>"Ação desconhecida"]);
     }
 } else {
-    echo "Nenhuma ação informada!";
+    echo json_encode(["status"=>"erro","mensagem"=>"Nenhuma ação informada"]);
 }
+
+function get($id) {
+    include("../../conexao.php");
+    $id = (int) $id;
+    $sql = mysqli_query($conexao, "SELECT p.*, a.nome_servidor 
+                                   FROM pacient_details p 
+                                   INNER JOIN agendamentos a ON p.fk_agenda = a.id 
+                                   WHERE p.id = $id");
+    if (mysqli_num_rows($sql) > 0) {
+        $row = mysqli_fetch_assoc($sql);
+        echo json_encode([
+            "status" => "ok",
+            "data" => [
+                "cid"           => $row['cid'],
+                "data_inicio"   => $row['data_inicio'],
+                "data_final"    => $row['data_final'],
+                "tipo_servico"  => $row['tipo_servico'],
+                "observacao"    => $row['observacao'],
+                "servidor_nome" => $row['nome_servidor'],
+                "servidor_id"   => $row['fk_agenda']
+            ]
+        ]);
+    } else {
+        echo json_encode(["status"=>"erro","mensagem"=>"Procedimento não encontrado"]);
+    }
+}
+
 
 function edit($servidor_id) {
     include("../../conexao.php"); 
-    // Função de edição (se necessário)
+ 
     if (isset($_POST['id'])) {
         $id = (int) $_POST['id'];
         if ($id <= 0) {
@@ -73,17 +104,18 @@ function edit($servidor_id) {
             $data_final = mysqli_real_escape_string($conexao, $_POST["data_final"]);
             $tipo_servico = mysqli_real_escape_string($conexao, $_POST["tipo_servico"]);
             $observacao = mysqli_real_escape_string($conexao, $_POST["observacao"]);
+           
             $sql = "UPDATE pacient_details SET 
                     cid='$cid', 
                     data_inicio='$data_inicio', 
                     data_final='$data_final', 
                     tipo_servico='$tipo_servico', 
                     observacao='$observacao' 
-                    WHERE id=$id";
+                    WHERE id == $id";
 
         }
         if (mysqli_query($conexao, $sql)) {
-            echo "<script>alert('Atualização realizada com sucesso!'); 
+            echo "<script>alert('Alteração Concluída!'); 
              window.location.href = 'pacient_details.php';</script>";
         } else {
             echo "<script>alert('Erro ao atualizar: " . mysqli_error($conexao) . "'); window.history.back();</script>";

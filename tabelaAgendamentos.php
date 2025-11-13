@@ -55,6 +55,6 @@
         }
         echo "</tbody></table>";
     } else {
-        echo "<p>Nenhum agendamento encontrado.</p>";
+        echo "<p>Nenhum agendamento encontrado, verifique as datas.</p>";
     }
     ?>

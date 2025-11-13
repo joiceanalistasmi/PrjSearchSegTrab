@@ -9,6 +9,15 @@ include("conexao.php");
 
 
 session_start();
+// Se ainda não existe, gera um token único 
+// testar para CSRF - Cross-Site Request Forgery
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+    die('Requisição inválida. Possível ataque CSRF detectado.');
+}
 
 if (
     isset($_POST['nome_servidor']) && isset($_POST['telefone']) && isset($_POST['tipo']) && 
@@ -42,6 +51,7 @@ if (
             echo "<script>alert('Horário já agendado. Por favor, escolha outro horário.'); window.history.back();</script>";
             exit;
         } else {
+            
             $sqlGravarAgenda = mysqli_query(
                 $conexao,
                 "INSERT INTO agendamentos (nome_servidor, tipo_de_usuario, nome_acompanhante, telefone, email, tipo, data_agendamento, horario, status)
@@ -62,6 +72,7 @@ if (
     exit;
     session_destroy();
 }
+unset($_SESSION['csrf_token']); // invalida o token antigo
 
  
 //enviar a notitificação por e-mail

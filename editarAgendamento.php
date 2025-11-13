@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agendamento para perícia médica - Segurança do trabalho</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -77,11 +76,11 @@
                         <h4><b>Editar:</b> Agendamento - Perícia médica - Segurança do trabalho</h4>
                         <input type="hidden" name="id" value="<?php echo $agendamento['id']; ?>">
                         <div>
-                            <label for="nome_servidor">Nome do Servidor</label>
-                            <input type="text" id="nome_servidor" name="nome_servidor" value="<?php echo htmlspecialchars($agendamento['nome_servidor']); ?>" maxlength="100" required>
+                            <label for="nome_servidor">Nome do Servidor*</label>
+                            <input type="text" id="nome_servidor" name="nome_servidor" pattern="^[A-Za-zÀ-ÿ\s']+$" value="<?php echo htmlspecialchars($agendamento['nome_servidor']); ?>" maxlength="100" required>
                         </div>
                         <div>
-                            <label for="tipo_de_usuario">Tipo de Usuário</label>
+                            <label for="tipo_de_usuario">Tipo de Usuário*</label>
                             <select id="tipo_de_usuario" name="tipo_de_usuario" required>
                                 <option value="servidorPublico" <?php echo ($agendamento['tipo_de_usuario'] == 'servidorPublico') ? 'selected' : ''; ?>>Servidor público</option>
                                 <option value="acompanhante" <?php echo ($agendamento['tipo_de_usuario'] == 'acompanhante') ? 'selected' : ''; ?>>Acompanhante</option>
@@ -89,36 +88,36 @@
                         </div>
                         <div>
                             <label for="nome_acompanhante">Nome do Acompanhante (quando necessario)</label>
-                            <input type="text" id="nome_acompanhante" name="nome_acompanhante"
+                            <input type="text" id="nome_acompanhante" name="nome_acompanhante" pattern="^[A-Za-zÀ-ÿ\s']+$"
                                 value="<?php echo htmlspecialchars($agendamento['nome_acompanhante']); ?>" maxlength="100">
-                        </div>
-
-                        <div>
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($agendamento['email']); ?>"
-                                maxlength="100" onchange="mascaraEmail(this.value)">
                         </div>
                         <div>
                             <label for="telefone">Telefone*</label>
                             <input type="tel" id="telefone" name="telefone"
                                 value="<?php echo htmlspecialchars($agendamento['telefone']); ?>" maxlength="14">
-
                         </div>
                         <div>
-                            <label for="tipo">Tipo de Atendimento</label>
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  
+                                    value="<?php echo htmlspecialchars($agendamento['email']); ?>"
+                                maxlength="100" onchange="mascaraEmail(this.value)">
+                        </div>
+                       
+                        <div>
+                            <label for="tipo">Tipo de Atendimento*</label>
                             <select id="tipo" name="tipo" class="form-select" required>
                                 <option value="consulta" <?php echo ($agendamento['tipo'] == 'consulta') ? 'selected' : ''; ?>>Retorno ao Trabalho</option>
                                 <option value="Homologacao_de_Atestado" <?php echo ($agendamento['tipo'] == 'atestado') ? 'selected' : ''; ?>>Homologação de Atestado</option>
                             </select>
                         </div>
                         <div>
-                            <label for="data_agendamento">Data do Agendamento</label>
+                            <label for="data_agendamento">Data do Agendamento*</label>
                             <input type="date" id="data_agendamento" name="data_agendamento"
                                 value="<?php echo htmlspecialchars($agendamento['data_agendamento']);  ?>" required>
                         </div>
 
                         <div>
-                            <label for="horario">Horário</label>
+                            <label for="horario">Horário*</label>
                             <select id="horario" name="horario" required>
                                 <option value="<?php echo $agendamento['horario']; ?>" selected>
                                     <?php echo $agendamento['horario']; ?>
