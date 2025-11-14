@@ -9,7 +9,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <link rel="stylesheet" href="responsive.css" />
-
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -86,7 +86,7 @@ if (empty($_SESSION['csrf_token'])) {
           <option value="cancelado">Remarcar</option>
         </select>
       </div>
-
+      <br/>
       <div class="button">
         <button type="submit">AGENDAR</button>
         <button type="reset">LIMPAR</button>

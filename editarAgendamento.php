@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <title>Agendamento para perícia médica - Segurança do trabalho</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="style.css">
     <script src="funcao.js"></script>
 
 </head>
@@ -135,7 +136,7 @@
                                 <option value="finalizado" <?php echo ($agendamento['status'] == 'finalizado') ? 'selected' : ''; ?>>Finalizado</option>
                             </select>
                         </div>
-
+                        <br/>
                         <div class="button">
                             <button type="submit" name="btn-gravar" class="btn btn-primary">Atualizar</button>
                             <button type="reset" name="btn-reset" class="btn btn-secondary">Limpar</button>

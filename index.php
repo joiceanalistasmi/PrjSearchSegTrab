@@ -28,9 +28,9 @@ date_default_timezone_set('America/Sao_Paulo');
         <div class="formSearch" >
             <button type="button" class="btn btn-primary" onclick="window.location.href='agendamento.php'">NOVO AGENDAMENTO</button>
             <label>Data (Inicial e Final):</label>
-            <input type="date" id="dataInicio" name="dataInicio" style="width: 15%;">
+            <input type="date" id="dataInicio" name="dataInicio" style="width: 12%;">
             <span>até</span>
-            <input type="date" id="dataFim" name="dataFim" style="width: 15%;" >
+            <input type="date" id="dataFim" name="dataFim" style="width: 12%;" >
             <button type="submit" class="btn btn-primary">CONSULTAR</button>
         </div>
     <br/>

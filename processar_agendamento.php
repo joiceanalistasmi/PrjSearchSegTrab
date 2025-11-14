@@ -72,7 +72,7 @@ if (
     exit;
     session_destroy();
 }
-unset($_SESSION['csrf_token']); // invalida o token antigo
+unset($_SESSION['csrf_token']); // invalida o token old
 
  
 //enviar a notitificação por e-mail
